@@ -4,11 +4,13 @@ library(dplyr)
 HistoramUI <- function(id){
   tagList(
     sidebarLayout(
-      sidebarPanel(
-        column(12,
-          chooseSliderSkin("Flat", color = "#112446"),
-          sliderInput(NS(id, "a"), "Select: a", min = 0, max = 10, value = 1, step = 1),
-          sliderInput(NS(id, "b"), "Select: b", min = 0, max = 10, value = 1, step = 1)
+      sidebarPanel(width = 4,
+        fluidRow(
+          column(12,
+                 chooseSliderSkin("Modern", color = "#112446"),
+                 sliderInput(NS(id, "a"), "Select: a", min = 0, max = 10, value = 1, step = 1),
+                 sliderInput(NS(id, "b"), "Select: b", min = 0, max = 10, value = 1, step = 1)
+          )
         )
       ),
       mainPanel(
