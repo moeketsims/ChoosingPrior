@@ -1,5 +1,4 @@
 
-
 DistplotApp <- function(){
   source("utils/modules_script.R")
   library(shiny)
