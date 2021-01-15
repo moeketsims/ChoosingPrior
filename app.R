@@ -20,11 +20,28 @@ DistplotApp <- function(){
       title = 'Choosing a Priors',
       tabPanel('Beta Prior',
                sidebarLayout(
-                 sidebarPanel(
-                   SliderUI("hist1")
+                 sidebarPanel(width = 2,
+                   fluidRow(
+                     column(12,
+                            SliderUI("hist1"))
+                   )
                  ),
                  mainPanel(
-                   plotOutput("distplot")
+                  fluidRow(
+                    column(5,
+                           plotOutput("distplot1")
+                    ),
+                    column(2,
+                           helpText('
+                              $$
+                                p(\\theta|data) = \\frac{p(data|\\theta)p(\\theta)}{p(data)}
+                              $$'
+                           )
+                    ),
+                    column(5,
+                           plotOutput("distplot2")
+                    )
+                  )
                  )
                )
             )
@@ -34,7 +51,16 @@ DistplotApp <- function(){
   server <- function(input, output, session){
     data <- SliderServer("hist1")
     
-    output$distplot <- renderPlot({
+    output$distplot1 <- renderPlot({
+      ggplot(data(), aes(x, y))+
+        geom_line()+
+        labs(x=bquote(~ theta), y = "Density", title = "Beta(a,b)")+
+        theme_light()+
+        theme(axis.title.x = element_text(size = 20))+
+        theme(plot.title = element_text(hjust = 0.5))
+    })
+    
+    output$distplot2 <- renderPlot({
       ggplot(data(), aes(x, y))+
         geom_line()+
         labs(x=bquote(~ theta), y = "Density", title = "Beta(a,b)")+
