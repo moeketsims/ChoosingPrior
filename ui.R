@@ -1,4 +1,12 @@
-source("utils/installpackagies.R")
+library(shiny)
+library(ggplot2)
+library(dplyr)
+library(shinyWidgets)
+library(graphics)
+library(purrr)
+library(DT)
+library(shinydashboard)
+
 fluidPage(
   includeCSS("www/styles.css"),
   withMathJax(),
