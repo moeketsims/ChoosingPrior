@@ -1,5 +1,4 @@
 function(input, output, session){
-  source("utils/installpackagies.R")
   
     df_bernuolli <- reactive({
       df <- data.frame(Simulated = as.numeric(rbernoulli(input$sample_size, input$p)))
