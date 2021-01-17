@@ -1,0 +1,8 @@
+shiny
+ggplot2
+dplyr
+shinyWidgets
+graphics
+purrr
+DT
+shinydashboard
