@@ -1,3 +1,4 @@
+source("utils/installpackagies.R")
 fluidPage(
   includeCSS("www/styles.css"),
   withMathJax(),
