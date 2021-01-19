@@ -6,11 +6,13 @@ library(graphics)
 library(purrr)
 library(DT)
 library(shinydashboard)
+library(shinydashboardPlus)
 
 fluidPage(
   includeCSS("www/styles.css"),
   withMathJax(),
-  useShinydashboard(),
+  #useShinydashboard(),
+  useShinydashboardPlus(),
   titlePanel(tags$i(
     h1(strong("Probabilistic Machine Learning"), 
        style = "font-family: 'times'; font-size: 25px; text-align: center")
@@ -37,8 +39,8 @@ fluidPage(
                               fluidRow(
                                 box(width=12, title = "Prior: Beta(a,b)",background = "olive",
                                     chooseSliderSkin("Nice"),
-                                    sliderInput("a", "Select: a", min = 0, max = 10, value = 1),
-                                    sliderInput("b", "Select: b", min = 0, max = 10, value = 1)
+                                    sliderInput("a", "Select: a", min = 0, max = 100, value = 1, step = 0.1),
+                                    sliderInput("b", "Select: b", min = 0, max = 100, value = 1, step = 0.1)
                                 )
                               )
                             )
@@ -73,7 +75,65 @@ fluidPage(
                  )
                )
              )
-    )
+    ),
+    tabPanel('Beta-Bernoulli Model in Learning Analytics',
+             sidebarLayout(
+               sidebarPanel(width=3,
+                            fluidRow(
+                              box(width = 12, title = "Number of Students Registered for a Course/Module",background = "olive",
+                                  numericInputIcon("enrollement", label = "Number of Students:",
+                                                   value = 100, icon = list("Sample Size"), min = 0, step = 5)
+                              )
+                            ),
+                            fluidRow(
+                              box(width=12, title = "Generate Data",background = "olive",
+                                  chooseSliderSkin("Nice"),
+                                  sliderInput("t1", "Probability of Clicking TASK 1", min = 0, max = 1, value = 0.70),
+                                  sliderInput("t2", "Probability of Clicking TASK 2", min = 0, max = 1, value = 0.40)
+
+                              ),
+                              boxPlus(width = 12,title = "Prior of Parameters",
+                                      sliderInput("a_prior", "Select: a", min = 0, max = 100, value = 1),
+                                      sliderInput("b_prior", "Select: b", min = 0, max = 100, value = 1)
+                                      )
+                            )
+                            ),
+               mainPanel(
+                 fluidRow(
+                   column(3,
+                          fluidRow(
+                            tableOutput('tasks')
+                          )
+                   ),
+                   column(5,
+                          fluidRow(
+                            boxPlus(
+                              width = 12,
+                              title = "Prior", 
+                              closable = FALSE, 
+                              status = "warning", 
+                              solidHeader = FALSE, 
+                              collapsible = FALSE,
+                              enable_sidebar = FALSE,
+                              sidebar_width = 25,
+                              sidebar_start_open = FALSE,
+                              sidebar_content = tagList(
+                                sliderInput("a_prior", "Select: a", min = 0, max = 100, value = 0.40),
+                                sliderInput("b_prior", "Select: b", min = 0, max = 100, value = 0.40)
+                              ),
+                              plotOutput("prior_plot", width = 235, height = 250),
+                              plotOutput("dis", width = 235, height = 250)
+                            )
+                          )
+                          ),
+                   column(1,
+                          "Moeketsi"
+                         
+                   )
+                 )
+               ))
+             
+             )
   )
   
 )
