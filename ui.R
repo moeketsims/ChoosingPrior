@@ -92,7 +92,7 @@ fluidPage(
                                   sliderInput("t2", "Probability of Clicking TASK 2", min = 0, max = 1, value = 0.40)
 
                               ),
-                              boxPlus(width = 12,title = "Prior of Parameters",
+                              box(width = 12,title = "Encoding Domain Knowledge/Belief",background = "olive",
                                       sliderInput("a_prior", "Select: a", min = 0, max = 100, value = 1),
                                       sliderInput("b_prior", "Select: b", min = 0, max = 100, value = 1)
                                       )
@@ -100,16 +100,32 @@ fluidPage(
                             ),
                mainPanel(
                  fluidRow(
-                   column(3,
-                          fluidRow(
-                            tableOutput('tasks')
-                          )
-                   ),
-                   column(5,
+                   # column(3,
+                   #        fluidRow(
+                   #          tableOutput('tasks')
+                   #        )
+                   # ),
+                   column(6,
                           fluidRow(
                             boxPlus(
                               width = 12,
-                              title = "Prior", 
+                              title = "My belief about Learning Designs before we see the data", 
+                              closable = FALSE, 
+                              status = "warning", 
+                              solidHeader = FALSE, 
+                              enable_sidebar = FALSE,
+                              sidebar_width = 25,
+                              sidebar_start_open = FALSE,
+                              sidebar_content = tagList(
+                                sliderInput("a_prior", "Select: a", min = 0, max = 100, value = 0.50),
+                                sliderInput("b_prior", "Select: b", min = 0, max = 100, value = 0.50)
+                              ),
+                              plotOutput("prior_plot", width = 235, height = 235)
+                             
+                            ),
+                            boxPlus(
+                              width = 12,
+                              title = "What the data is saying about Learning Design 1", 
                               closable = FALSE, 
                               status = "warning", 
                               solidHeader = FALSE, 
@@ -118,16 +134,49 @@ fluidPage(
                               sidebar_width = 25,
                               sidebar_start_open = FALSE,
                               sidebar_content = tagList(
-                                sliderInput("a_prior", "Select: a", min = 0, max = 100, value = 0.40),
-                                sliderInput("b_prior", "Select: b", min = 0, max = 100, value = 0.40)
+                                sliderInput("a_prior", "Select: a", min = 0, max = 100, value = 0.50),
+                                sliderInput("b_prior", "Select: b", min = 0, max = 100, value = 0.50)
                               ),
-                              plotOutput("prior_plot", width = 235, height = 250),
-                              plotOutput("dis", width = 235, height = 250)
+                              
+                              plotOutput("dis", width = 235, height = 235)
                             )
                           )
                           ),
-                   column(1,
-                          "Moeketsi"
+                   column(6,
+                          fluidRow(
+                            box(
+                              title = "The goal of this ShinyApp",
+                              status = "primary",
+                              width = NULL,
+                              userPost(
+                                id = 1,
+                                #src = "https://adminlte.io/themes/AdminLTE/dist/img/user1-128x128.jpg",
+                                author = "Moeketsi Mosia",
+                                description = "The goal of this shinyapp is two-folded, firstly to help the user to build an intuition on
+                                Bayesian Machine Learning through an interactive data visualization with R programming. Secondly, to apply probabilistic modelling.
+                                to answer a Business Question. Since I work in a Centre for Teaching and learnnig; I decided to share how my team will apply these tools.
+                                For instance, since we were forced to move to online learning in 2020 and as a result, different Learning Designs were implemented in different Modules/Course. Thus, our business question is: which learning designs result in high online student engagement?
+                                For marketing, a business question could be which social media platform will be more effective"
+                                ),
+                            ),
+                            boxPlus(
+                              width = 12,
+                              title = "What the data is saying about Learning Design 2", 
+                              closable = FALSE, 
+                              status = "warning", 
+                              solidHeader = FALSE, 
+                              collapsible = FALSE,
+                              enable_sidebar = FALSE,
+                              sidebar_width = 25,
+                              sidebar_start_open = FALSE,
+                              sidebar_content = tagList(
+                                sliderInput("a_prior", "Select: a", min = 0, max = 100, value = 0.50),
+                                sliderInput("b_prior", "Select: b", min = 0, max = 100, value = 0.50)
+                              ),
+                              
+                              plotOutput("dis_task2", width = 235, height = 235)
+                            )
+                          )
                          
                    )
                  )
